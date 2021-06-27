@@ -7,35 +7,53 @@ import
     Switch,
     Route,
 } from "react-router-dom";
-
 import reportWebVitals from './reportWebVitals';
-import Page2 from './components/Page2';
-import Page1 from './components/Page1';
-import Page3 from './components/Page3';
 import 'antd/dist/antd.css';
-import Header from './components/Header';
-import Footer from './components/Footer';
+import styled from 'styled-components';
+import { route } from './route/route';
+import TopNavigate from './components/TopNav/TopNavigate';
+
+const Wrapper = styled.div`
+    width:100vw;
+    height:100vh;
+    display:flex;
+    justify-content: space-between ;
+    align-items: stretch ;
+    flex-direction:column;
+    div{
+        box-sizing: border-box;
+    }
+`;
+const Main = styled.div`
+    width:100%;
+    height:80%;
+    padding:5px 50px 20px 50px;
+`;
+
 
 ReactDOM.render(
-    <Router>
-        <Header />
-        <Switch>
-            <Route path="/Page1">
-                <Page1 />
-            </Route>
-            <Route path="/Page2">
-                <Page2 />
-            </Route>
-            <Route path="/Page3">
-                <Page3 />
-            </Route>
-        </Switch>
-        <Footer />
-    </Router>,
+    <Wrapper>
+        <TopNavigate />
+        <Main>
+            <Router>
+                <Switch>
+                    {
+                        route.map((item, index: number) =>
+                        {
+                            return (
+                                <Route key={index} path={item.path} component={item.components} />
+                            );
+                        })
+                    }
+                </Switch>
+            </Router>
+        </Main>
+    </Wrapper>
+    ,
     document.getElementById('root')
 );
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+reportWebVitals();;;
